@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Forged Steel Rigid Flanged Coupling Assembly — SolidWorks & AutoCAD Design | Atul Kumar Yadav">
+    <title>Forged Steel Flanged Coupling | Atul Kumar Yadav</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Syne:wght@500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M65 15C45 15 35 35 30 45L15 50L30 65L45 70C55 65 75 55 75 15Z' fill='%232563EB'/%3E%3Cpath d='M30 65L20 80L35 70Z' fill='%232563EB'/%3E%3Cpath d='M45 70L30 85L40 75Z' fill='%232563EB'/%3E%3Ccircle cx='55' cy='35' r='6' fill='white'/%3E%3Cpath d='M75 75 L77 80 L82 82 L77 84 L75 89 L73 84 L68 82 L73 80Z' fill='%232563EB'/%3E%3Cpath d='M25 25 L26 28 L29 29 L26 30 L25 33 L24 30 L21 29 L24 28Z' fill='%232563EB'/%3E%3C/svg%3E">     
+    
+    <style>
+        /* ====================
+           CORE VARIABLES & THEME SETTINGS
+           ==================== */
+        :root {
+            --bg-color: #080b11;
+            --surface: #101726;
+            --surface-hover: #172033;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(37, 99, 235, 0.4);
+
+            --accent: #2563eb; 
+            --accent-rgb: 37, 99, 235;
+            --accent-glow: rgba(var(--accent-rgb), 0.35);
+
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 40px;
+        }
+
+        body.light-mode {
+            --bg-color: #f1f5f9;
+            --surface: #ffffff;
+            --surface-hover: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(37, 99, 235, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            padding: var(--space-lg) var(--space-md) 60px;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* Ambient Glow Effects */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 500px; height: 500px;
+            right: -150px; top: -200px;
+            background: rgba(var(--accent-rgb), 0.12);
+            filter: blur(150px);
+            border-radius: 50%;
+            pointer-events: none; z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            width: 450px; height: 450px;
+            left: -200px; bottom: -150px;
+            background: rgba(var(--accent-rgb), 0.10);
+            filter: blur(150px);
+            border-radius: 50%;
+            pointer-events: none; z-index: 0;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3, .logo {
+            font-family: 'Syne', sans-serif;
+            overflow-wrap: break-word;
+        }
+
+        h2.section-title {
+            font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.2rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin: var(--space-lg) 0 var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-eyebrow {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem; font-weight: 600;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: var(--space-xs);
+        }
+
+        p { color: var(--text-secondary); font-size: 1.02rem; line-height: 1.6; }
+
+        /* NAVIGATION */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            gap: var(--space-sm); position: sticky; top: 24px; z-index: 1000;
+            padding: 12px 24px; border-radius: 50px;
+            border: 1px solid var(--border-color);
+            margin-bottom: var(--space-lg);
+            background: rgba(16, 23, 38, 0.35);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-mode nav {
+            background: rgba(255, 255, 255, 0.45);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo { font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text-primary); }
+        .logo .dot { color: var(--accent); }
+
+        .back-link {
+            color: var(--text-secondary); text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 6px;
+            transition: color 0.2s ease;
+        }
+        .back-link:hover { color: var(--accent); }
+
+        .theme-toggle {
+            background: var(--surface); border: 1px solid var(--border-color);
+            color: var(--text-primary); width: 44px; height: 44px; border-radius: 50%;
+            display: grid; place-items: center; cursor: pointer; transition: var(--transition);
+        }
+        .theme-toggle:hover { border-color: var(--border-hover); color: var(--accent); }
+        .theme-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .light-icon { display: none; }
+        body.light-mode .dark-icon { display: none; }
+        body.light-mode .light-icon { display: block; }
+
+        /* HERO HEADER */
+        .project-hero { padding: clamp(16px, 3vw, 32px) 0 var(--space-md); }
+        .project-hero h1 {
+            font-size: clamp(2.3rem, 1rem + 3.8vw, 4rem);
+            line-height: 1.05; font-weight: 800; letter-spacing: -0.03em;
+            margin-bottom: var(--space-sm);
+        }
+        .project-meta-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--space-sm); }
+        .pill {
+            background: var(--surface); border: 1px solid var(--border-color);
+            padding: 8px 16px; border-radius: 50px;
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* CARD COMPONENTS */
+        .card {
+            background: var(--surface); border-radius: var(--radius);
+            padding: var(--space-md); border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            margin-bottom: var(--space-md);
+        }
+        .card:hover { border-color: var(--border-hover); }
+
+        .feature-list { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 14px; }
+        .feature-list li {
+            position: relative; padding-left: 24px;
+            color: var(--text-secondary); font-size: 0.98rem; line-height: 1.6;
+        }
+        .feature-list li::before {
+            content: '✦'; position: absolute; left: 0;
+            color: var(--accent); font-size: 0.8rem; top: 2px;
+        }
+
+        /* 3D IFRAME CONTAINER */
+        .media-container {
+            width: 100%; height: 500px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden; background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: var(--space-lg);
+        }
+        .media-container iframe { 
+            width: 100%; height: 100%; border: none; object-fit: cover; 
+        }
+
+        /* PARAMETRIC MATRIX TABLE */
+        .table-responsive {
+            width: 100%; overflow-x: auto;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            background: var(--surface);
+            margin: var(--space-md) 0;
+        }
+        table {
+            width: 100%; border-collapse: collapse; text-align: left;
+            font-size: 0.95rem; color: var(--text-primary);
+        }
+        th {
+            background: rgba(255, 255, 255, 0.02);
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--accent); font-weight: 700;
+            text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.08em;
+            padding: 16px 20px; border-bottom: 1px solid var(--border-color);
+        }
+        td { padding: 14px 20px; border-bottom: 1px solid var(--border-color); color: var(--text-secondary); }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--surface-hover); color: var(--text-primary); }
+        .highlight-val { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--accent); }
+
+        /* 4-IMAGE RESPONSIVE GALLERY GRID */
+        .media-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            align-items: start;
+            margin: var(--space-md) 0;
+        }
+
+        .media-card {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .media-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .media-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .media-caption {
+            padding: 14px 16px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 850px) {
+            .media-grid-4 { grid-template-columns: 1fr; }
+            .media-container { height: 380px; }
+        }
+
+        footer {
+            text-align: center; margin-top: 60px;
+            color: var(--text-secondary); font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- NAVBAR -->
+        <nav>
+            <a href="index.html" class="back-link">&larr; Back to Portfolio</a>
+            <a href="index.html" class="logo">Atul<span class="dot">.</span></a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="dark-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg class="light-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- PROJECT HERO HEADER -->
+        <header class="project-hero">
+            <span class="section-eyebrow">SolidWorks &amp; AutoCAD &middot; Power Transmission</span>
+            <h1>Heavy-Duty Forged Steel Flanged Coupling</h1>
+            <div class="project-meta-pills">
+                <span class="pill">Shaft Dia: <strong>100 mm</strong></span>
+                <span class="pill">Flange Outer Dia: <strong>220 mm</strong></span>
+                <span class="pill">Flange Thickness: <strong>22 mm</strong></span>
+                <span class="pill">Bolt Circle Radius: <strong>85 mm (PCD 170 mm)</strong></span>
+                <span class="pill">Fasteners: <strong>6 &times; M20 Bolts (75 mm)</strong></span>
+                <span class="pill">Safety Fuse: <strong>81% Torsional Ratio</strong></span>
+            </div>
+        </header>
+
+        <!-- DESIGN METHODOLOGY & REVIEW DEFENSE -->
+        <section>
+            <h2 class="section-title">Design Defense &amp; Geometric Rationale</h2>
+            <div class="card">
+                <p>
+                    Modeled a high-torque rigid flanged coupling in SolidWorks for a 100 mm power transmission shaft. Rather than utilizing traditional bulky cast iron empirical dimensions, this design is engineered specifically around high-yield forged alloy steel parameters.
+                </p>
+                <br>
+                <p style="font-weight: 600; color: var(--text-primary);">Engineering Defense &amp; Load Calculations:</p>
+                <ul class="feature-list">
+                    <li>
+                        <strong>1. Material Paradigm &mdash; Forged Steel Justification:</strong><br>
+                        A conventional cast iron coupling for a 100 mm shaft requires a massive 200 mm hub diameter and a 50 mm thick flange. This lean design utilizes a 120 mm hub (10 mm wall thickness) and a 22 mm flange. High-strength forged steel (e.g., AISI 1045 or 4340) allows a slim flange thickness rule of thumb of approximately 0.2 &times; shaft diameter:
+                        <br>
+                        <span style="display:block; margin: 6px 0; font-family:'Space Grotesk', sans-serif; font-weight:700; color:var(--accent);">
+                            0.2 &times; 100 mm = 20 mm
+                        </span>
+                        Choosing a 22 mm flange thickness provides a built-in 10% structural safety factor.
+                    </li>
+                    <li>
+                        <strong>2. Torsional Balance &mdash; Mechanical Fuse Protection:</strong><br>
+                        Comparing the shaft torsional strength (Ts) against the double-shear torque capacity of the 6 &times; M20 bolt pattern (Tb):
+                        <br>
+                        &bull; <em>Shaft Torque:</em> Ts = (&pi; / 16) &times; &tau;s &times; 100&sup3; &approx; 196,350 &tau;s<br>
+                        &bull; <em>Bolt Pattern Torque:</em> Tb = 6 &times; [(&pi; / 4) &times; 20&sup2;] &times; &tau;b &times; 85 &approx; 160,140 &tau;b
+                        <br>
+                        <span style="display:block; margin: 6px 0; font-family:'Space Grotesk', sans-serif; font-weight:700; color:var(--accent);">
+                            Tb / Ts &approx; 81%
+                        </span>
+                        The bolts act as an intentional mechanical fuse: under catastrophic overloads, the easily replaceable 20 mm bolts shear at 81% load capacity, protecting the expensive 100 mm drive shaft from yielding.
+                    </li>
+                    <li>
+                        <strong>3. Ergonomic Tool &amp; Maintenance Clearance:</strong><br>
+                        The bolt circle radius is 85 mm (PCD 170 mm) inside a 220 mm flange, leaving 25 mm radial distance from the hole center to the outer rim. For an M20 hex nut (28 mm across flats), the distance from center to sharpest corner is 16.1 mm. Subtracting 16.1 mm from 25 mm leaves ~9 mm of clearance, providing room for a standard M20 socket wrench without rim interference.
+                    </li>
+                    <li>
+                        <strong>4. Fastener Stackup &amp; Thread Extension Proportions:</strong><br>
+                        The 75 mm M20 bolt passes through two 22 mm flanges (44 mm grip) and a 12 mm heavy hex nut. Including two 3 mm washers (62 mm stack height), the 75 mm bolt leaves 13 mm protruding past the nut face. This equates to 5 to 6 full exposed thread turns, comfortably exceeding the 2 to 3 thread structural engagement code.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE 2D DRAWING VIEWER -->
+        <section>
+            <h2 class="section-title">Interactive 2D Engineering Drawing</h2>
+            <div class="media-container">
+                <iframe src="Flange drawing.html" title="Interactive 2D Flange Drawing"></iframe>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE 3D MODEL VIEWER -->
+        <section>
+            <h2 class="section-title">Interactive 3D eDrawing Model</h2>
+            <div class="media-container">
+                <iframe src="Flanged-Coupling.html" title="Interactive Flanged Coupling 3D Model"></iframe>
+            </div>
+        </section>
+
+        <!-- PARAMETRIC MATRIX TABLE -->
+        <section>
+            <h2 class="section-title">Parametric Dimensioning Matrix</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature / Dimension</th>
+                            <th>Relation / Formula</th>
+                            <th>Design Value</th>
+                            <th>Engineering Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Main Shaft Hole Dia (d)</td>
+                            <td>d</td>
+                            <td class="highlight-val">100 mm</td>
+                            <td>Primary torque transmission shaft bore</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Flange Outer Diameter (D)</td>
+                            <td>2.2 &times; d</td>
+                            <td class="highlight-val">220 mm</td>
+                            <td>Outer perimeter housing bolt circle and wrench clearance</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Hub Outer Diameter (d_hub)</td>
+                            <td>1.2 &times; d</td>
+                            <td class="highlight-val">120 mm</td>
+                            <td>10 mm forged steel wall around shaft engagement bore</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Hub Total Engagement Length</td>
+                            <td>1.42 &times; d</td>
+                            <td class="highlight-val">142 mm</td>
+                            <td>Full hub depth (120 mm hub sleeve + 22 mm flange)</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Flange Thickness (tf)</td>
+                            <td>0.22 &times; d</td>
+                            <td class="highlight-val">22 mm</td>
+                            <td>Forged steel flange plate thickness with 10% safety margin</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Bolt Circle Radius (R)</td>
+                            <td>PCD / 2</td>
+                            <td class="highlight-val">85 mm</td>
+                            <td>170 mm Pitch Circle Diameter positioning 6 shear bolts</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Bolt Hole Count &amp; Dia</td>
+                            <td>6 &times; d_bolt</td>
+                            <td class="highlight-val">6 &times; 20 mm</td>
+                            <td>20 mm clearance holes for high-shear M20 fasteners</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Transition Fillet Radius</td>
+                            <td>r_fillet</td>
+                            <td class="highlight-val">3 mm</td>
+                            <td>Reduces stress concentration at hub-to-flange junction</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Bolt Head / Nut Width</td>
+                            <td>Across Flats</td>
+                            <td class="highlight-val">28 mm</td>
+                            <td>Standard M20 heavy hex wrench tooling size</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Bolt Total Length &amp; Grip</td>
+                            <td>L_bolt</td>
+                            <td class="highlight-val">75 mm</td>
+                            <td>40 mm smooth unthreaded shank + 35 mm threaded end</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Nut &amp; Bolt Head Height</td>
+                            <td>0.6 &times; d_bolt</td>
+                            <td class="highlight-val">12 mm</td>
+                            <td>Heavy hex nut profile preventing thread stripping</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4-IMAGE GALLERY -->
+        <section>
+            <h2 class="section-title">Technical Drawings &amp; Component Renders</h2>
+            <div class="media-grid-4">
+
+                <!-- Image 1: Flange Component -->
+                <div class="media-card">
+                    <img src="Flange.png" alt="3D Flange Component Model" onerror="this.src='https://via.placeholder.com/600x400/101726/2563eb?text=Flange+Component';">
+                    <div class="media-caption">
+                        Single Flange Half (OD 220 mm / Bore 100 mm)
+                    </div>
+                </div>
+
+                <!-- Image 2: Bolt -->
+                <div class="media-card">
+                    <img src="Flange Bolt.png" alt="M20 Flange Bolt Component Model" onerror="this.src='https://via.placeholder.com/600x400/101726/2563eb?text=M20+Flange+Bolt';">
+                    <div class="media-caption">
+                        Heavy Hex Bolt (M20 &times; 75 mm / 40 mm Smooth Shank)
+                    </div>
+                </div>
+
+                <!-- Image 3: Nut -->
+                <div class="media-card">
+                    <img src="Flange Nut.png" alt="M20 Hex Nut Component Model" onerror="this.src='https://via.placeholder.com/600x400/101726/2563eb?text=M20+Hex+Nut';">
+                    <div class="media-caption">
+                        Heavy Hex Nut (28 mm Across Flats / 12 mm Thickness)
+                    </div>
+                </div>
+
+                <!-- Image 4: Full Assembly -->
+                <div class="media-card">
+                    <img src="Flanged Coupl.png" alt="Flanged Coupling Full Assembly Model" onerror="this.src='https://via.placeholder.com/600x400/101726/2563eb?text=Full+Coupling+Assembly';">
+                    <div class="media-caption">
+                        Complete Forged Steel Flanged Coupling Assembly
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer>&copy; <span id="year"></span> Atul Kumar Yadav &mdash; Parametric Mechanical Systems</footer>
+
+    </div>
+
+    <script>
+        (function () {
+            const toggleBtn = document.getElementById('themeToggle');
+            const body = document.body;
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+            const savedTheme = localStorage.getItem('theme');
+
+            if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
+                body.classList.add('light-mode');
+            }
+            toggleBtn.addEventListener('click', () => {
+                body.classList.toggle('light-mode');
+                localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+            });
+            document.getElementById('year').textContent = new Date().getFullYear();
+        })();
+    </script>
+</body>
+</html>

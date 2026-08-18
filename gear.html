@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Precision 3:1 Spur Gear Transmission System — SolidWorks Parametric Kinematics | Atul Kumar Yadav">
+    <title>3:1 Spur Gear Transmission System | Atul Kumar Yadav</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Syne:wght@500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M65 15C45 15 35 35 30 45L15 50L30 65L45 70C55 65 75 55 75 15Z' fill='%232563EB'/%3E%3Cpath d='M30 65L20 80L35 70Z' fill='%232563EB'/%3E%3Cpath d='M45 70L30 85L40 75Z' fill='%232563EB'/%3E%3Ccircle cx='55' cy='35' r='6' fill='white'/%3E%3Cpath d='M75 75 L77 80 L82 82 L77 84 L75 89 L73 84 L68 82 L73 80Z' fill='%232563EB'/%3E%3Cpath d='M25 25 L26 28 L29 29 L26 30 L25 33 L24 30 L21 29 L24 28Z' fill='%232563EB'/%3E%3C/svg%3E">     
+    
+    <style>
+        /* ====================
+           CORE VARIABLES & THEME SETTINGS
+           ==================== */
+        :root {
+            --bg-color: #080b11;
+            --surface: #101726;
+            --surface-hover: #172033;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(37, 99, 235, 0.4);
+
+            --accent: #2563eb; 
+            --accent-rgb: 37, 99, 235;
+            --accent-glow: rgba(var(--accent-rgb), 0.35);
+
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 40px;
+        }
+
+        body.light-mode {
+            --bg-color: #f1f5f9;
+            --surface: #ffffff;
+            --surface-hover: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(37, 99, 235, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            padding: var(--space-lg) var(--space-md) 60px;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* Ambient Glow Effects */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 500px; height: 500px;
+            right: -150px; top: -200px;
+            background: rgba(var(--accent-rgb), 0.12);
+            filter: blur(150px);
+            border-radius: 50%;
+            pointer-events: none; z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            width: 450px; height: 450px;
+            left: -200px; bottom: -150px;
+            background: rgba(var(--accent-rgb), 0.10);
+            filter: blur(150px);
+            border-radius: 50%;
+            pointer-events: none; z-index: 0;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3, .logo {
+            font-family: 'Syne', sans-serif;
+            overflow-wrap: break-word;
+        }
+
+        h2.section-title {
+            font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.2rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin: var(--space-lg) 0 var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-eyebrow {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem; font-weight: 600;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: var(--space-xs);
+        }
+
+        p { color: var(--text-secondary); font-size: 1.02rem; line-height: 1.6; }
+
+        /* NAVIGATION */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            gap: var(--space-sm); position: sticky; top: 24px; z-index: 1000;
+            padding: 12px 24px; border-radius: 50px;
+            border: 1px solid var(--border-color);
+            margin-bottom: var(--space-lg);
+            background: rgba(16, 23, 38, 0.35);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-mode nav {
+            background: rgba(255, 255, 255, 0.45);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo { font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text-primary); }
+        .logo .dot { color: var(--accent); }
+
+        .back-link {
+            color: var(--text-secondary); text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 6px;
+            transition: color 0.2s ease;
+        }
+        .back-link:hover { color: var(--accent); }
+
+        .theme-toggle {
+            background: var(--surface); border: 1px solid var(--border-color);
+            color: var(--text-primary); width: 44px; height: 44px; border-radius: 50%;
+            display: grid; place-items: center; cursor: pointer; transition: var(--transition);
+        }
+        .theme-toggle:hover { border-color: var(--border-hover); color: var(--accent); }
+        .theme-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .light-icon { display: none; }
+        body.light-mode .dark-icon { display: none; }
+        body.light-mode .light-icon { display: block; }
+
+        /* HERO HEADER */
+        .project-hero { padding: clamp(16px, 3vw, 32px) 0 var(--space-md); }
+        .project-hero h1 {
+            font-size: clamp(2.3rem, 1rem + 3.8vw, 4rem);
+            line-height: 1.05; font-weight: 800; letter-spacing: -0.03em;
+            margin-bottom: var(--space-sm);
+        }
+        .project-meta-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--space-sm); }
+        .pill {
+            background: var(--surface); border: 1px solid var(--border-color);
+            padding: 8px 16px; border-radius: 50px;
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* CARD COMPONENTS */
+        .card {
+            background: var(--surface); border-radius: var(--radius);
+            padding: var(--space-md); border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            margin-bottom: var(--space-md);
+        }
+        .card:hover { border-color: var(--border-hover); }
+
+        .feature-list { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+        .feature-list li {
+            position: relative; padding-left: 24px;
+            color: var(--text-secondary); font-size: 0.98rem; line-height: 1.5;
+        }
+        .feature-list li::before {
+            content: '✦'; position: absolute; left: 0;
+            color: var(--accent); font-size: 0.8rem; top: 2px;
+        }
+
+        /* MEDIA CONTAINERS (3D VIEWER & VIDEO) */
+        .media-container {
+            width: 100%; height: 500px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden; background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: var(--space-lg);
+        }
+        .media-container iframe, 
+        .media-container video { width: 100%; height: 100%; border: none; object-fit: cover; }
+
+        /* PARAMETRIC MATRIX TABLE */
+        .table-responsive {
+            width: 100%; overflow-x: auto;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            background: var(--surface);
+            margin: var(--space-md) 0;
+        }
+        table {
+            width: 100%; border-collapse: collapse; text-align: left;
+            font-size: 0.95rem; color: var(--text-primary);
+        }
+        th {
+            background: rgba(255, 255, 255, 0.02);
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--accent); font-weight: 700;
+            text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.08em;
+            padding: 16px 20px; border-bottom: 1px solid var(--border-color);
+        }
+        td { padding: 14px 20px; border-bottom: 1px solid var(--border-color); color: var(--text-secondary); }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--surface-hover); color: var(--text-primary); }
+        .highlight-val { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--accent); }
+
+        /* DYNAMIC RESPONSIVE GALLERY GRID */
+        .media-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            align-items: start;
+            margin: var(--space-md) 0;
+        }
+
+        .media-card {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .media-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        /* AUTO-RESIZING IMAGE BOX (NO WHITE MARGINS, NO CROPPING) */
+        .media-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .media-caption {
+            padding: 14px 16px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            .media-grid-4 { grid-template-columns: 1fr; }
+            .media-container { height: 380px; }
+        }
+
+        footer {
+            text-align: center; margin-top: 60px;
+            color: var(--text-secondary); font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- NAVBAR -->
+        <nav>
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+            <a href="index.html" class="logo">Atul<span class="dot">.</span></a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="dark-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg class="light-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- PROJECT HERO HEADER -->
+        <header class="project-hero">
+            <span class="section-eyebrow">SolidWorks · Kinematics &amp; Gear Geometry</span>
+            <h1>Custom 3:1 Spur Gear Transmission System</h1>
+            <div class="project-meta-pills">
+                <span class="pill">Module: <strong>m = 2.5 mm</strong></span>
+                <span class="pill">Pinion Teeth: <strong>18T</strong></span>
+                <span class="pill">Gear Teeth: <strong>54T</strong></span>
+                <span class="pill">Pressure Angle: <strong>20°</strong></span>
+                <span class="pill">Center Distance: <strong>90 mm</strong></span>
+            </div>
+        </header>
+
+        <!-- OVERVIEW & DESIGN REVIEW SUMMARY -->
+        <section>
+            <h2 class="section-title">Overview &amp; Design Defense</h2>
+            <div class="card">
+                <p>
+                    Modeled a compact, high-precision <strong>3:1 gear reduction drive</strong> (18T / 54T, Module 2.5) in SolidWorks. Tooth profiles were generated using fully parametric global equations, tying involute curves, pitch diameters, and root clearances directly to master design variables.
+                </p>
+                <br>
+                <p style="font-weight: 600; color: var(--text-primary);">Summary Checklist for Design Review Defense:</p>
+                <ul class="feature-list">
+                    <li><strong>Ratio Optimization:</strong> Achieves an exact target speed reduction ratio of 3:1 (54T / 18T).</li>
+                    <li><strong>Kinematic Reliability:</strong> Specifying 18 teeth on the driver pinion strictly avoids interference and profile undercutting without requiring complex negative profile shifts.</li>
+                    <li><strong>Compact Packaging:</strong> Saves 10 mm in center distance (90 mm vs 100 mm) and significantly reduces gearbox enclosure size compared to a conventional 20T/60T configuration.</li>
+                    <li><strong>Standardized Sourcing:</strong> Built upon a standard Module 2.5 involute profile, balancing maximum tooth bending strength with minimal cutter tooling costs.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE 3D MODEL VIEWER -->
+        <section>
+            <h2 class="section-title">Interactive 3D eDrawing Model</h2>
+            <div class="media-container">
+                <iframe src="Gear-Pinion.html" title="Interactive 3:1 Gear Transmission 3D Model"></iframe>
+            </div>
+        </section>
+
+        <!-- PARAMETRIC MATRIX TABLE -->
+        <section>
+            <h2 class="section-title">Parametric Gear Dimensioning Matrix</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter / Dimension</th>
+                            <th>Equation / Relation</th>
+                            <th>Calculated Value</th>
+                            <th>Engineering Significance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Module (m)</td>
+                            <td>m</td>
+                            <td class="highlight-val">2.5 mm</td>
+                            <td>Standard pitch module governing tooth size and strength</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Pinion Tooth Count (Z1)</td>
+                            <td>Teeth</td>
+                            <td class="highlight-val">18</td>
+                            <td>Minimum threshold to prevent cutter interference and undercutting</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Gear Tooth Count (Z2)</td>
+                            <td>3 * Z1</td>
+                            <td class="highlight-val">54</td>
+                            <td>Driven gear tooth count achieving the exact 3:1 speed reduction</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Pressure Angle (α)</td>
+                            <td>Pressure_Angle</td>
+                            <td class="highlight-val">20°</td>
+                            <td>Standard pressure angle for high load capacity and smooth rolling fit</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Pinion Pitch Diameter (D1)</td>
+                            <td>m * Z1</td>
+                            <td class="highlight-val">45 mm</td>
+                            <td>Pitch circle diameter driving speed and velocity calculations</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Gear Pitch Diameter (D2)</td>
+                            <td>m * Z2</td>
+                            <td class="highlight-val">135 mm</td>
+                            <td>Pitch circle diameter of driven gear</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Center Distance (a)</td>
+                            <td>(D1 + D2) / 2</td>
+                            <td class="highlight-val">90 mm</td>
+                            <td>Saves 10 mm vs 20T/60T, optimizing housing space</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Addendum (ha)</td>
+                            <td>Module</td>
+                            <td class="highlight-val">2.5 mm</td>
+                            <td>Radial height of tooth above pitch line</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Dedendum (hf)</td>
+                            <td>1.25 * Module</td>
+                            <td class="highlight-val">3.125 mm</td>
+                            <td>Radial depth of tooth space below pitch line including bottom clearance</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Pinion Outside Diameter</td>
+                            <td>Pitch_Dia + (2 * Addendum)</td>
+                            <td class="highlight-val">50 mm</td>
+                            <td>Tip circle diameter (Blank diameter for turning operations)</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Pinion Root Diameter</td>
+                            <td>Pitch_Dia - (2 * Dedendum)</td>
+                            <td class="highlight-val">38.75 mm</td>
+                            <td>Root circle diameter governing tooth root fillet radius</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Base Circle Diameter</td>
+                            <td>Pitch_Dia * cos(20°)</td>
+                            <td class="highlight-val">42.28 mm</td>
+                            <td>Base diameter from which the true involute profile originates</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- KINEMATIC SIMULATION VIDEO -->
+        <section>
+            <h2 class="section-title">Kinematic Motion &amp; Tooth Mesh Animation</h2>
+            <div class="media-container">
+                <video controls poster="gear-mesh-thumbnail.jpg">
+                    <source src="Gear Motion.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </section>
+
+        <!-- 4-IMAGE GALLERY -->
+        <section>
+            <h2 class="section-title">2D Technical Drawings &amp; 3D Renders</h2>
+            <div class="media-grid-4">
+
+                <!-- Image 1: 2D AutoCAD Technical Drawing -->
+                <div class="media-card">
+                    <img src="Gear 2D.png" alt="2D AutoCAD Gear Profile Drawing" onerror="this.src='https://via.placeholder.com/600x400/101726/2563eb?text=2D+AutoCAD+Gear+Drawing';">
+                    <div class="media-caption">
+                        2D AutoCAD Technical Drawing &amp; Tooth Dimensions
+                    </div>
+                </div>
+
+                <!-- Image 2: 3D Assembly View -->
+                <div class="media-card">
+                    <img src="Gear-Pinion.png" alt="3D Gear Assembly View" onerror="this.src='https://via.placeholder.com/600x400/101726/2563eb?text=3D+Section+Cutaway';">
+                    <div class="media-caption">
+                        3D Assembly View 
+                    </div>
+                </div>
+
+                <!-- Image 3: 3D Pinion Model -->
+                <div class="media-card">
+                    <img src="Pionion.png" alt="3D 18T Pinion Component Model" onerror="this.src='https://via.placeholder.com/600x400/101726/2563eb?text=3D+18T+Pinion+Model';">
+                    <div class="media-caption">
+                        3D 18-Teeth Driver Pinion Component
+                    </div>
+                </div>
+
+                <!-- Image 4: 3D Driven Gear Model -->
+                <div class="media-card">
+                    <img src="Gear.png" alt="3D 54T Driven Gear Component Model" onerror="this.src='https://via.placeholder.com/600x400/101726/2563eb?text=3D+54T+Gear+Model';">
+                    <div class="media-caption">
+                        3D 54-Teeth Driven Gear Component
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer>© <span id="year"></span> Atul Kumar Yadav — Parametric Transmission Systems</footer>
+
+    </div>
+
+    <script>
+        (function () {
+            const toggleBtn = document.getElementById('themeToggle');
+            const body = document.body;
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+            const savedTheme = localStorage.getItem('theme');
+
+            if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
+                body.classList.add('light-mode');
+            }
+            toggleBtn.addEventListener('click', () => {
+                body.classList.toggle('light-mode');
+                localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+            });
+            document.getElementById('year').textContent = new Date().getFullYear();
+        })();
+    </script>
+</body>
+</html>

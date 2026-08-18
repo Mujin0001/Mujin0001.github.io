@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Parametric Deep Groove Ball Bearing Assembly — SolidWorks & AutoCAD Design | Atul Kumar Yadav">
+    <title>Parametric Ball Bearing Assembly | Atul Kumar Yadav</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Syne:wght@500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M65 15C45 15 35 35 30 45L15 50L30 65L45 70C55 65 75 55 75 15Z' fill='%232563EB'/%3E%3Cpath d='M30 65L20 80L35 70Z' fill='%232563EB'/%3E%3Cpath d='M45 70L30 85L40 75Z' fill='%232563EB'/%3E%3Ccircle cx='55' cy='35' r='6' fill='white'/%3E%3Cpath d='M75 75 L77 80 L82 82 L77 84 L75 89 L73 84 L68 82 L73 80Z' fill='%232563EB'/%3E%3Cpath d='M25 25 L26 28 L29 29 L26 30 L25 33 L24 30 L21 29 L24 28Z' fill='%232563EB'/%3E%3C/svg%3E">     
+    
+    <style>
+        /* ====================
+           CORE VARIABLES & THEME SETTINGS
+           ==================== */
+        :root {
+            --bg-color: #080b11;
+            --surface: #101726;
+            --surface-hover: #172033;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(37, 99, 235, 0.4);
+
+            --accent: #2563eb; 
+            --accent-rgb: 37, 99, 235;
+            --accent-glow: rgba(var(--accent-rgb), 0.35);
+
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 40px;
+        }
+
+        body.light-mode {
+            --bg-color: #f1f5f9;
+            --surface: #ffffff;
+            --surface-hover: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(37, 99, 235, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            padding: var(--space-lg) var(--space-md) 60px;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* Ambient Glow Effects */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 500px; height: 500px;
+            right: -150px; top: -200px;
+            background: rgba(var(--accent-rgb), 0.12);
+            filter: blur(150px);
+            border-radius: 50%;
+            pointer-events: none; z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            width: 450px; height: 450px;
+            left: -200px; bottom: -150px;
+            background: rgba(var(--accent-rgb), 0.10);
+            filter: blur(150px);
+            border-radius: 50%;
+            pointer-events: none; z-index: 0;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3, .logo {
+            font-family: 'Syne', sans-serif;
+            overflow-wrap: break-word;
+        }
+
+        h2.section-title {
+            font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.2rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin: var(--space-lg) 0 var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-eyebrow {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem; font-weight: 600;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: var(--space-xs);
+        }
+
+        p { color: var(--text-secondary); font-size: 1.02rem; line-height: 1.6; }
+
+        /* NAVIGATION */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            gap: var(--space-sm); position: sticky; top: 24px; z-index: 1000;
+            padding: 12px 24px; border-radius: 50px;
+            border: 1px solid var(--border-color);
+            margin-bottom: var(--space-lg);
+            background: rgba(16, 23, 38, 0.35);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-mode nav {
+            background: rgba(255, 255, 255, 0.45);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo { font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text-primary); }
+        .logo .dot { color: var(--accent); }
+
+        .back-link {
+            color: var(--text-secondary); text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 6px;
+            transition: color 0.2s ease;
+        }
+        .back-link:hover { color: var(--accent); }
+
+        .theme-toggle {
+            background: var(--surface); border: 1px solid var(--border-color);
+            color: var(--text-primary); width: 44px; height: 44px; border-radius: 50%;
+            display: grid; place-items: center; cursor: pointer; transition: var(--transition);
+        }
+        .theme-toggle:hover { border-color: var(--border-hover); color: var(--accent); }
+        .theme-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .light-icon { display: none; }
+        body.light-mode .dark-icon { display: none; }
+        body.light-mode .light-icon { display: block; }
+
+        /* HERO HEADER */
+        .project-hero { padding: clamp(16px, 3vw, 32px) 0 var(--space-md); }
+        .project-hero h1 {
+            font-size: clamp(2.3rem, 1rem + 3.8vw, 4rem);
+            line-height: 1.05; font-weight: 800; letter-spacing: -0.03em;
+            margin-bottom: var(--space-sm);
+        }
+        .project-meta-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--space-sm); }
+        .pill {
+            background: var(--surface); border: 1px solid var(--border-color);
+            padding: 8px 16px; border-radius: 50px;
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* CARD COMPONENTS */
+        .card {
+            background: var(--surface); border-radius: var(--radius);
+            padding: var(--space-md); border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            margin-bottom: var(--space-md);
+        }
+        .card:hover { border-color: var(--border-hover); }
+
+        .feature-list { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 14px; }
+        .feature-list li {
+            position: relative; padding-left: 24px;
+            color: var(--text-secondary); font-size: 0.98rem; line-height: 1.6;
+        }
+        .feature-list li::before {
+            content: '✦'; position: absolute; left: 0;
+            color: var(--accent); font-size: 0.8rem; top: 2px;
+        }
+
+        /* 3D IFRAME CONTAINER */
+        .media-container {
+            width: 100%; height: 500px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden; background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: var(--space-lg);
+        }
+        .media-container iframe { 
+            width: 100%; height: 100%; border: none; object-fit: cover; 
+        }
+
+        /* RESPONSIVE VIDEO CONTAINER (Fills full width seamlessly) */
+        .video-container {
+            width: 100%;
+            max-width: 520px;            /* Keeps video at an ideal display size on desktop */
+            aspect-ratio: 1 / 1;         /* Matches exact 1:1 square video frame */
+            margin: 0 auto var(--space-lg); /* Centers container horizontally */
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden; 
+            background: #e5e7eb;         /* Blends seamlessly with CAD studio canvas */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+        .video-container video {    
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+            object-fit: cover;           /* Fits 100% edge-to-edge without side bars or cropping */
+            display: block;
+}
+
+        /* PARAMETRIC MATRIX TABLE */
+        .table-responsive {
+            width: 100%; overflow-x: auto;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            background: var(--surface);
+            margin: var(--space-md) 0;
+        }
+        table {
+            width: 100%; border-collapse: collapse; text-align: left;
+            font-size: 0.95rem; color: var(--text-primary);
+        }
+        th {
+            background: rgba(255, 255, 255, 0.02);
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--accent); font-weight: 700;
+            text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.08em;
+            padding: 16px 20px; border-bottom: 1px solid var(--border-color);
+        }
+        td { padding: 14px 20px; border-bottom: 1px solid var(--border-color); color: var(--text-secondary); }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--surface-hover); color: var(--text-primary); }
+        .highlight-val { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--accent); }
+
+        /* 5-IMAGE RESPONSIVE GALLERY GRID */
+        .media-grid-5 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            align-items: start;
+            margin: var(--space-md) 0;
+        }
+
+        .media-card {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .media-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .media-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .media-caption {
+            padding: 14px 16px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 850px) {
+            .media-grid-5 { grid-template-columns: repeat(2, 1fr); }
+            .media-container { height: 380px; }
+        }
+
+        @media (max-width: 550px) {
+            .media-grid-5 { grid-template-columns: 1fr; }
+        }
+
+        footer {
+            text-align: center; margin-top: 60px;
+            color: var(--text-secondary); font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- NAVBAR -->
+        <nav>
+            <a href="index.html" class="back-link">&larr; Back to Portfolio</a>
+            <a href="index.html" class="logo">Atul<span class="dot">.</span></a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="dark-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg class="light-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- PROJECT HERO HEADER -->
+        <header class="project-hero">
+            <span class="section-eyebrow">SolidWorks &amp; AutoCAD &middot; Precision Kinematics</span>
+            <h1>Parametric Deep Groove Ball Bearing</h1>
+            <div class="project-meta-pills">
+                <span class="pill">Bore Dia: <strong>25 mm</strong></span>
+                <span class="pill">Outer Dia: <strong>65 mm</strong></span>
+                <span class="pill">Width: <strong>31 mm</strong></span>
+                <span class="pill">Rolling Elements: <strong>5 x 24 mm Steel Balls</strong></span>
+                <span class="pill">Raceway Radius: <strong>12 mm</strong></span>
+                <span class="pill">Corner Fillet: <strong>2.1 mm</strong></span>
+            </div>
+        </header>
+
+        <!-- DESIGN METHODOLOGY & REVIEW DEFENSE -->
+        <section>
+            <h2 class="section-title">Design Defense &amp; Geometric Rationale</h2>
+            <div class="card">
+                <p>
+                    Modeled a heavy-duty deep groove ball bearing assembly in SolidWorks using fully parametric relations. Every ring geometry, raceway curvature, and ball position dynamically scales based on fundamental anti-friction bearing equations.
+                </p>
+                <br>
+                <p style="font-weight: 600; color: var(--text-primary);">Key Engineering Logic &amp; Mathematical Defense:</p>
+                <ul class="feature-list">
+                    <li>
+                        <strong>1. The Perfect Ball Fit (24 mm Ball vs. 12 mm Raceway Radius):</strong><br>
+                        A 24 mm diameter ball has a radius of exactly 12 mm. Both the inner ring outer raceway and outer ring inner raceway are machined with an identical 12 mm groove radius. Matching the raceway radius to the ball radius maximizes conformal surface contact under radial loads, preventing point-stress concentration and operational rattling.
+                    </li>
+                    <li>
+                        <strong>2. The Ring Gap &amp; Groove Depth Geometry (D = 37 mm and d = 53 mm):</strong><br>
+                        • <em>Physical Ring Gap:</em> Outer Diameter of Inner Ring (37 mm) vs. Inner Diameter of Outer Ring (53 mm).
+                        <br>
+                        <span style="display:block; margin: 6px 0; font-family:'Space Grotesk', sans-serif; font-weight:700; color:var(--accent);">
+                            Gap = 53 mm &minus; 37 mm = 16 mm
+                        </span>
+                        • <em>Groove Pocket Calculation:</em> Since the ball diameter is 24 mm, it cannot fit into a plain 16 mm gap. The raceway centers are recessed 8 mm deep into both rings:
+                        <br>
+                        <span style="display:block; margin: 6px 0; font-family:'Space Grotesk', sans-serif; font-weight:700; color:var(--accent);">
+                            Total Available Space = 16 mm (Gap) + 8 mm (Inner Groove) + 8 mm (Outer Groove) = 32 mm
+                        </span>
+                        Subtracting the 24 mm ball diameter leaves 8 mm of steel, providing a robust 4 mm solid shoulder wall on each ring to handle high axial thrust loads.
+                    </li>
+                    <li>
+                        <strong>3. The 2.1 mm Corner Fillet (Shaft &amp; Housing Clearance):</strong><br>
+                        All sharp outer corners feature a 2.1 mm chamfer/fillet radius. In practical machinery, rotating shafts and housing shoulders are machined with fillet radii to eliminate stress concentration. The 2.1 mm corner radius prevents bearing binding against mounting shoulders, ensuring full flush contact.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE 3D MODEL VIEWER -->
+        <section>
+            <h2 class="section-title">Interactive 3D eDrawing Model</h2>
+            <div class="media-container">
+                <iframe src="Ball Bearing.html" title="Interactive Ball Bearing 3D Model"></iframe>
+            </div>
+        </section>
+
+        <!-- PARAMETRIC MATRIX TABLE -->
+        <section>
+            <h2 class="section-title">Parametric Dimensioning Matrix</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature / Dimension</th>
+                            <th>Formula / Symbol</th>
+                            <th>Design Value</th>
+                            <th>Engineering Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Inner Ring Bore (d)</td>
+                            <td>Inner Shaft Fit</td>
+                            <td class="highlight-val">25 mm</td>
+                            <td>Standard shaft mounting diameter</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Inner Ring Outer Dia (D_inner)</td>
+                            <td>Raceway Shoulder</td>
+                            <td class="highlight-val">37 mm</td>
+                            <td>Maintains 4 mm raceway wall thickness</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Outer Ring Inner Dia (d_outer)</td>
+                            <td>Outer Raceway Shoulder</td>
+                            <td class="highlight-val">53 mm</td>
+                            <td>Forms the 16 mm physical gap with inner ring</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Outer Ring Outer Dia (D)</td>
+                            <td>Housing Bore Fit</td>
+                            <td class="highlight-val">65 mm</td>
+                            <td>Standard housing installation diameter</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Bearing Width (B)</td>
+                            <td>Face Width</td>
+                            <td class="highlight-val">31 mm</td>
+                            <td>Provides face width to accommodate 24 mm balls</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Steel Ball Diameter</td>
+                            <td>Rolling Element Dia</td>
+                            <td class="highlight-val">24 mm</td>
+                            <td>Primary rolling element carrying radial/axial loads</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Number of Balls</td>
+                            <td>Z</td>
+                            <td class="highlight-val">5 Balls</td>
+                            <td>Calculated for rolling clearance and load distribution</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Raceway Groove Radius</td>
+                            <td>Ball Radius (R)</td>
+                            <td class="highlight-val">12 mm</td>
+                            <td>Matches ball geometry to maximize contact stress area</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Groove Center Offset</td>
+                            <td>Recess Depth</td>
+                            <td class="highlight-val">8 mm</td>
+                            <td>Offset into inner and outer rings to capture balls</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-primary); font-weight:600;">Corner Fillet Radius</td>
+                            <td>r_min</td>
+                            <td class="highlight-val">2.1 mm</td>
+                            <td>Clears mounting shaft/housing fillet corners</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- KINEMATIC SIMULATION VIDEO -->
+        <section>
+            <h2 class="section-title">Kinematic Motion &amp; Rotation Animation</h2>
+            <div class="video-container">
+                <video controls poster="bearing-thumbnail.jpg">
+                    <source src="Bearing motion.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </section>
+
+        <!-- 5-IMAGE GALLERY -->
+        <section>
+            <h2 class="section-title">Technical Drawings &amp; Component Renders</h2>
+            <div class="media-grid-5">
+
+                <!-- Image 1: Steel Ball -->
+                <div class="media-card">
+                    <img src="Ball.png" alt="24mm Steel Ball Component Model" onerror="this.src='https://via.placeholder.com/600x400/101726/2563eb?text=24mm+Steel+Ball';">
+                    <div class="media-caption">
+                        24 mm Precision Steel Ball
+                    </div>
+                </div>
+
+                <!-- Image 2: Inner Ring -->
+                <div class="media-card">
+                    <img src="Ball Inr.png" alt="Bearing Inner Ring Model" onerror="this.src='https://via.placeholder.com/600x400/101726/2563eb?text=Inner+Ring';">
+                    <div class="media-caption">
+                        Inner Ring (Bore 25 mm / Raceway Radius 12 mm)
+                    </div>
+                </div>
+
+                <!-- Image 3: Outer Ring -->
+                <div class="media-card">
+                    <img src="Ball Otr.png" alt="Bearing Outer Ring Model" onerror="this.src='https://via.placeholder.com/600x400/101726/2563eb?text=Outer+Ring';">
+                    <div class="media-caption">
+                        Outer Ring (OD 65 mm / Raceway Radius 12 mm)
+                    </div>
+                </div>
+
+                <!-- Image 4: Full Assembly -->
+                <div class="media-card">
+                    <img src="Ball Ass.png" alt="Ball Bearing Full Assembly Model" onerror="this.src='https://via.placeholder.com/600x400/101726/2563eb?text=Bearing+Assembly';">
+                    <div class="media-caption">
+                        Full Ball Bearing Assembly
+                    </div>
+                </div>
+
+                <!-- Image 5: Sectional View -->
+                <div class="media-card">
+                    <img src="Ball Sec.png" alt="Ball Bearing Sectional Cutaway View" onerror="this.src='https://via.placeholder.com/600x400/101726/2563eb?text=Sectional+Cutaway';">
+                    <div class="media-caption">
+                        Sectional Cutaway &amp; Raceway Fit View
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer>&copy; <span id="year"></span> Atul Kumar Yadav — Parametric Mechanical Systems</footer>
+
+    </div>
+
+    <script>
+        (function () {
+            const toggleBtn = document.getElementById('themeToggle');
+            const body = document.body;
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+            const savedTheme = localStorage.getItem('theme');
+
+            if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
+                body.classList.add('light-mode');
+            }
+            toggleBtn.addEventListener('click', () => {
+                body.classList.toggle('light-mode');
+                localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+            });
+            document.getElementById('year').textContent = new Date().getFullYear();
+        })();
+    </script>
+</body>
+</html>
