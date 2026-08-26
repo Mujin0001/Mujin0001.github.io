@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AutoCAD 2D Floor Plan & Structural Layout — Designed by Atul Kumar Yadav.">
+    <title>Precision Residential Floor Plan | Atul Kumar Yadav</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Syne:wght@500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M65 15C45 15 35 35 30 45L15 50L30 65L45 70C55 65 75 55 75 15Z' fill='%232563EB'/%3E%3Cpath d='M30 65L20 80L35 70Z' fill='%232563EB'/%3E%3Cpath d='M45 70L30 85L40 75Z' fill='%232563EB'/%3E%3Ccircle cx='55' cy='35' r='6' fill='white'/%3E%3Cpath d='M75 75 L77 80 L82 82 L77 84 L75 89 L73 84 L68 82 L73 80Z' fill='%232563EB'/%3E%3Cpath d='M25 25 L26 28 L29 29 L26 30 L25 33 L24 30 L21 29 L24 28Z' fill='%232563EB'/%3E%3C/svg%3E">      
+    
+    <style>
+        /* ====================
+           CORE VARIABLES & STYLES
+           ==================== */
+        :root {
+            --bg-color: #080b11;
+            --surface: #101726;
+            --surface-hover: #172033;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(37, 99, 235, 0.4);
+
+            --accent: #2563eb; 
+            --accent-rgb: 37, 99, 235;
+            --accent-glow: rgba(var(--accent-rgb), 0.35);
+
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 40px;
+        }
+
+        body.light-mode {
+            --bg-color: #f1f5f9;
+            --surface: #ffffff;
+            --surface-hover: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(37, 99, 235, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            padding: var(--space-lg) var(--space-md) 60px;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* Ambient Glow */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 500px; height: 500px;
+            right: -150px; top: -200px;
+            background: rgba(var(--accent-rgb), 0.12);
+            filter: blur(150px);
+            border-radius: 50%;
+            pointer-events: none; z-index: 0;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3, .logo { font-family: 'Syne', sans-serif; }
+
+        .section-eyebrow {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem; font-weight: 600;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: var(--space-xs);
+        }
+
+        h1 {
+            font-size: clamp(2.2rem, 1.2rem + 4vw, 4rem);
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: var(--space-sm);
+        }
+
+        p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6; }
+
+        /* NAVIGATION */
+        nav {
+            display: grid; 
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            position: sticky;
+            top: 24px;
+            z-index: 1000;
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            margin-bottom: var(--space-lg);
+            background: rgba(16, 23, 38, 0.35);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-mode nav {
+            background: rgba(255, 255, 255, 0.45);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+
+        .back-link {
+            color: var(--text-secondary); 
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem; 
+            font-weight: 600;
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px;
+            transition: color 0.2s ease;
+            justify-self: start;
+        }
+        .back-link:hover { color: var(--accent); }
+
+        .logo { 
+            font-size: 1.4rem; 
+            font-weight: 800; 
+            text-decoration: none; 
+            color: var(--text-primary);
+            justify-self: center;
+        }
+        .logo .dot { color: var(--accent); }
+
+        .nav-controls {
+            justify-self: end;
+        }
+
+        .theme-toggle {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 44px; height: 44px; border-radius: 50%;
+            display: grid; place-items: center; cursor: pointer;
+            transition: var(--transition); flex-shrink: 0;
+        }
+        .theme-toggle:hover { border-color: var(--border-hover); color: var(--accent); }
+        .theme-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
+        .light-icon { display: none; }
+        body.light-mode .dark-icon { display: none; }
+        body.light-mode .light-icon { display: block; }
+
+        /* BUTTONS */
+        .btn {
+            background: var(--text-primary);
+            color: var(--bg-color) !important; text-decoration: none;
+            padding: 12px 28px; border-radius: 50px;
+            font-weight: 600; font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex; align-items: center; gap: 8px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .btn:hover { transform: translateY(-2px); background-color: var(--accent); color: #fff !important; }
+
+        /* LAYOUT GRID & CARDS */
+        .header-meta {
+            display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: var(--space-md);
+        }
+        .tag {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            padding: 6px 16px; border-radius: 50px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem; font-weight: 600; color: var(--accent);
+        }
+
+        /* PROTECTED PDF CONTAINER */
+        .pdf-viewer-container {
+            position: relative;
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: var(--space-sm);
+            margin: var(--space-lg) 0;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .pdf-shield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 10;
+            background: transparent;
+        }
+
+        .pdf-frame {
+            width: 100%;
+            height: 750px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: #ffffff;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: var(--space-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .card h3 {
+            font-size: 1.3rem; margin-bottom: var(--space-sm); color: var(--text-primary);
+        }
+
+        .highlight-list {
+            list-style: none; margin-top: var(--space-sm);
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .highlight-list li {
+            color: var(--text-secondary); font-size: 0.98rem;
+            padding-left: 24px; position: relative; line-height: 1.5;
+        }
+        .highlight-list li::before {
+            content: ''; position: absolute;
+            left: 0; top: 8px;
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--accent);
+        }
+
+        footer {
+            text-align: center; margin-top: 60px;
+            color: var(--text-secondary);
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .details-grid { grid-template-columns: 1fr; }
+            .pdf-frame { height: 500px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- NAVBAR -->
+        <nav>
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+            <a href="index.html" class="logo">Atul<span class="dot">.</span></a>
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="dark-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg class="light-icon" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- HEADER -->
+        <header>
+            <span class="section-eyebrow">AutoCAD 2D Architectural &amp; Structural Drafting</span>
+            <h1>Custom Residential Floor Plan &amp; Spatial Layout</h1>
+            <div class="header-meta">
+                <span class="tag">AutoCAD 2D</span>
+                <span class="tag">Vastu Shastra Compliant</span>
+                <span class="tag">Open Courtyard</span>
+                <span class="tag">Front Open Garden</span>
+            </div>
+            <p>Designed tailored to exact site plot constraints (38'-5.75" x 40'-9"). This layout balances technical spatial requirements with Vastu Shastra principles and personalized lifestyle needs—combining an open courtyard and front garden with orthogonal living spaces across a non-parallel plot boundary.</p>
+        </header>
+
+        <!-- PROTECTED PDF VIEWER SECTION -->
+        <section class="pdf-viewer-container">
+            <div class="pdf-shield"></div>
+            <object data="floorplan.pdf#toolbar=0&navpanes=0&view=FitH" type="application/pdf" class="pdf-frame">
+                <iframe src="floorplan.pdf#toolbar=0&navpanes=0&view=FitH" class="pdf-frame">
+                    <p>Your browser does not support embedded PDFs. You can download the drawing directly:</p>
+                    <a href="floorplan.pdf" class="btn" download>Download Drawing PDF</a>
+                </iframe>
+            </object>
+        </section>
+
+        <!-- DESIGN RATIONALE & HIGHLIGHTS -->
+        <section class="details-grid">
+
+            <!-- Card 1: Vastu Shastra & Personal Customization -->
+            <div class="card">
+                <h3>Vastu Shastra &amp; Personal Lifestyle Needs</h3>
+                <p>Engineered to align directional energy flows with custom everyday usage requirements for a harmonious household layout.</p>
+                <ul class="highlight-list">
+                    <li><strong>Vastu Directional Zoning:</strong> Placed kitchen, bedrooms, and primary access points according to traditional Vastu guidelines.</li>
+                    <li><strong>Personalized Room Planning:</strong> Customized room dimensions to support family privacy, study areas, and client-specific living habits.</li>
+                    <li><strong>Brahmasthan Courtyard Integration:</strong> Maintained central openness via the internal courtyard to encourage positive energy circulation.</li>
+                </ul>
+            </div>
+
+            <!-- Card 2: Open Courtyard & Front Garden -->
+            <div class="card">
+                <h3>Open Courtyard &amp; Front Garden Design</h3>
+                <p>Combines outdoor greenery with an central open-to-sky courtyard to maximize natural ventilation and natural sunlight.</p>
+                <ul class="highlight-list">
+                    <li><strong>OPEN-1 Front Garden:</strong> Creates an inviting green entrance buffer while providing direct daylighting to front rooms.</li>
+                    <li><strong>Central Open Courtyard:</strong> Acts as an acoustic and natural ventilation hub, keeping interior rooms bright and well-ventilated.</li>
+                    <li><strong>OPEN-2 Utility Shaft:</strong> Dedicated 2'-6" x 2'-6" service shaft for discrete bath and plumbing exhaust ventilation.</li>
+                </ul>
+            </div>
+
+            <!-- Card 3: Geometric Constraints -->
+            <div class="card">
+                <h3>Non-Standard Boundary Geometry</h3>
+                <p>Accommodated an angled rear property line (38'-5.75") while maintaining strict 90° interior room angles for effortless utility.</p>
+                <ul class="highlight-list">
+                    <li><strong>Orthogonal Living Zones:</strong> Preserved 90-degree internal living areas for easy furniture placement and structural integrity.</li>
+                    <li><strong>Angular Variance Offset:</strong> Absorbed plot boundary angles into utility spaces and external offsets to keep key rooms square.</li>
+                    <li><strong>Wall Standard Specifications:</strong> Modeled 9-inch load-bearing perimeter brick walls and 4.5-inch internal partition walls.</li>
+                </ul>
+            </div>
+
+            <!-- Card 4: Structural Column Grid & CAD Discipline -->
+            <div class="card">
+                <h3>Structural Column &amp; CAD Discipline</h3>
+                <p>Integrated reinforced concrete column markers directly into the 2D layout to guide structural engineering and vertical load paths.</p>
+                <ul class="highlight-list">
+                    <li><strong>Strategic Column Placement:</strong> Positioned 9" x 9" and 9" x 12" structural column blocks at load-bearing wall intersections.</li>
+                    <li><strong>Staircase Integration:</strong> Built structural framing around the dog-legged staircase adjacent to the car parking bay (7'-8.5" x 13'-0").</li>
+                    <li><strong>Layer Standardization:</strong> Standardized dynamic blocks, line weights, dimensions, and annotations for clear construction documentation.</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <footer>© <span id="year"></span> Atul Kumar Yadav — Engineered with precision.</footer>
+
+    </div>
+
+    <script>
+        (function () {
+            const toggleBtn = document.getElementById('themeToggle');
+            const body = document.body;
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+            const savedTheme = localStorage.getItem('theme');
+
+            if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
+                body.classList.add('light-mode');
+            }
+            toggleBtn.addEventListener('click', () => {
+                body.classList.toggle('light-mode');
+                localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+            });
+            document.getElementById('year').textContent = new Date().getFullYear();
+        })();
+    </script>
+</body>
+</html>
